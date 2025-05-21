@@ -96,10 +96,17 @@ else()
     )
 endif()
 
-set_target_properties(ring_markdown PROPERTIES
-    PREFIX "lib"
-    OUTPUT_NAME "ring_markdown"
-)
+# Set target properties for output name and prefix
+if(WIN32)
+    set_target_properties(ring_markdown PROPERTIES
+        OUTPUT_NAME "ring_markdown"
+    )
+else()
+    set_target_properties(ring_markdown PROPERTIES
+        PREFIX "lib"
+        OUTPUT_NAME "ring_markdown"
+    )
+endif()
 
 # Add post-build command to copy the built library to the OS/architecture-specific directory
 add_custom_command(
