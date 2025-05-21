@@ -31,9 +31,14 @@ cd markdown
 
 2. Set RING environment variable to your Ring installation directory:
 
-On Windows:
+On Windows (cmd):
 ```cmd
-set RING=C:\Ring
+set RING=X:\path\to\ring
+```
+
+On Windows (PowerShell):
+```powershell
+$env:RING = "X:\path\to\ring"
 ```
 
 On Unix-like systems:
