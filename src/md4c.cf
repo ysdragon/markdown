@@ -1,0 +1,187 @@
+<ignorecpointertype>
+
+<code>
+#include "md4c.h"
+#include "md4c-html.h"
+
+
+// Callback for collecting HTML output
+static void md_html_output(const MD_CHAR* text, MD_SIZE size, void* userdata) {
+    String* output = (String*)userdata;
+    ring_string_add2(output, text, size);
+}
+
+// Parser callback handlers
+static int enter_block_callback(MD_BLOCKTYPE type, void* detail, void* userdata) {
+    if (!userdata) return 0;
+    List* list = (List*)userdata;
+    ring_list_addint(list, type);
+    return 0;
+}
+
+static int leave_block_callback(MD_BLOCKTYPE type, void* detail, void* userdata) {
+    return 0;
+}
+
+static int enter_span_callback(MD_SPANTYPE type, void* detail, void* userdata) {
+    return 0;
+}
+
+static int leave_span_callback(MD_SPANTYPE type, void* detail, void* userdata) {
+    return 0;
+}
+
+static int text_callback(MD_TEXTTYPE type, const MD_CHAR* text, MD_SIZE size, void* userdata) {
+    if (!userdata) return 0;
+    List* list = (List*)userdata;
+    String* str = ring_string_new(text);
+    ring_string_set2(str, text, size);
+    ring_list_addstring2(list, ring_string_get(str), ring_string_size(str));
+    ring_string_delete(str);
+    return 0;
+}
+</code>
+
+<runcode>
+aEnumTypes + "MD_BLOCKTYPE"
+aEnumTypes + "MD_SPANTYPE"
+aEnumTypes + "MD_TEXTTYPE"
+aEnumTypes + "MD_ALIGN"
+
+aStringTypes + "MD_CHAR"
+aNumberTypes + "MD_SIZE"
+</runcode>
+
+<constant>
+MD_BLOCK_DOC
+MD_BLOCK_QUOTE
+MD_BLOCK_UL
+MD_BLOCK_OL
+MD_BLOCK_LI
+MD_BLOCK_HR
+MD_BLOCK_H
+MD_BLOCK_CODE
+MD_BLOCK_HTML
+MD_BLOCK_P
+MD_BLOCK_TABLE
+MD_BLOCK_THEAD
+MD_BLOCK_TBODY
+MD_BLOCK_TR
+MD_BLOCK_TH
+MD_BLOCK_TD
+
+MD_SPAN_EM
+MD_SPAN_STRONG
+MD_SPAN_A
+MD_SPAN_IMG
+MD_SPAN_CODE
+MD_SPAN_DEL
+MD_SPAN_LATEXMATH
+MD_SPAN_LATEXMATH_DISPLAY
+MD_SPAN_WIKILINK
+MD_SPAN_U
+
+MD_TEXT_NORMAL
+MD_TEXT_NULLCHAR
+MD_TEXT_BR
+MD_TEXT_SOFTBR
+MD_TEXT_ENTITY
+MD_TEXT_CODE
+MD_TEXT_HTML
+MD_TEXT_LATEXMATH
+
+MD_FLAG_COLLAPSEWHITESPACE
+MD_FLAG_PERMISSIVEATXHEADERS
+MD_FLAG_PERMISSIVEURLAUTOLINKS
+MD_FLAG_PERMISSIVEEMAILAUTOLINKS
+MD_FLAG_NOINDENTEDCODEBLOCKS
+MD_FLAG_NOHTMLBLOCKS
+MD_FLAG_NOHTMLSPANS
+MD_FLAG_TABLES
+MD_FLAG_STRIKETHROUGH
+MD_FLAG_PERMISSIVEWWWAUTOLINKS
+MD_FLAG_TASKLISTS
+MD_FLAG_LATEXMATHSPANS
+MD_FLAG_WIKILINKS
+MD_FLAG_UNDERLINE
+MD_FLAG_HARD_SOFT_BREAKS
+MD_FLAG_PERMISSIVEAUTOLINKS
+MD_FLAG_NOHTML
+MD_DIALECT_COMMONMARK
+MD_DIALECT_GITHUB
+
+MD_HTML_FLAG_DEBUG
+MD_HTML_FLAG_VERBATIM_ENTITIES
+MD_HTML_FLAG_SKIP_UTF8_BOM
+MD_HTML_FLAG_XHTML
+</constant>
+
+
+<code>
+RING_FUNC(ring_md_parse)
+{
+    if ( RING_API_PARACOUNT != 2 ) {
+        RING_API_ERROR(RING_API_MISS2PARA);
+        return ;
+    }
+    RING_API_IGNORECPOINTERTYPE ;
+    if ( ! RING_API_ISSTRING(1) ) {
+        RING_API_ERROR(RING_API_BADPARATYPE);
+        return ;
+    }
+    if ( ! RING_API_ISLIST(2) ) {
+        RING_API_ERROR(RING_API_BADPARATYPE);
+        return ;
+    }
+    
+    MD_PARSER parser = {0};
+    parser.enter_block = enter_block_callback;
+    parser.leave_block = leave_block_callback;
+    parser.enter_span = enter_span_callback;
+    parser.leave_span = leave_span_callback;
+    parser.text = text_callback;
+    
+    List *list = RING_API_GETLIST(2);
+    RING_API_RETNUMBER(md_parse(RING_API_GETSTRING(1), strlen(RING_API_GETSTRING(1)), &parser, (void*)list));
+}
+
+
+RING_FUNC(ring_md_html)
+{
+    if ( RING_API_PARACOUNT != 2 ) {
+        RING_API_ERROR(RING_API_MISS2PARA);
+        return ;
+    }
+    RING_API_IGNORECPOINTERTYPE ;
+    if ( ! RING_API_ISSTRING(1) ) {
+        RING_API_ERROR(RING_API_BADPARATYPE);
+        return ;
+    }
+    if ( ! RING_API_ISNUMBER(2) ) {
+        RING_API_ERROR(RING_API_BADPARATYPE);
+        return ;
+    }
+    
+    String *output = ring_string_new("");
+    unsigned flags = RING_API_GETNUMBER(2);
+    
+    int result = md_html(RING_API_GETSTRING(1), 
+                        strlen(RING_API_GETSTRING(1)),
+                        md_html_output,
+                        output,
+                        flags,
+                        0);
+                        
+    if (result == 0) {
+        RING_API_RETSTRING2(ring_string_get(output), ring_string_size(output));
+    } else {
+        RING_API_RETNUMBER(result);
+    }
+    ring_string_delete(output);
+}
+</code>
+
+<register>
+void md_parse(void)
+void md_html(void)
+</register>
