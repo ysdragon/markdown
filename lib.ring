@@ -9,7 +9,7 @@ ok
 load "src/ring_markdown.rh"
 
 Class Markdown
-	flags
+    flags
 
     # Initialize the class with default values
     func init

@@ -14,19 +14,19 @@ cPathSep = "/"
 
 # Platform detection and configuration
 switch true
-	case isWindows()
-		cLibPrefix = ""
-		cPathSep = "\\"
-		cLibExt = ".dll"
-		cOSName = "windows"
-	case isLinux()
-		cLibExt = ".so"
-		cOSName = "linux"
-	case isFreeBSD()
-		cLibExt = ".so"
-		cOSName = "freebsd"
-	else
-		raise("Error: Unsupported operating system detected!")
+    case isWindows()
+        cLibPrefix = ""
+        cPathSep = "\\"
+        cLibExt = ".dll"
+        cOSName = "windows"
+    case isLinux()
+        cLibExt = ".so"
+        cOSName = "linux"
+    case isFreeBSD()
+        cLibExt = ".so"
+        cOSName = "freebsd"
+    else
+        raise("Error: Unsupported operating system detected!")
 end
 
 
@@ -34,19 +34,19 @@ end
 cArchName = getarch()
 switch cArchName
     case "x64"
-		cArchName = "amd64"
+        cArchName = "amd64"
     case "arm64"
-		cArchName = "arm64"
+        cArchName = "arm64"
     else
         raise("Error: Unsupported architecture: " + cArchName)
 end
 
 # Construct the library path
 cLibPath = exefolder() + ".." + cPathSep + "tools" + cPathSep + "ringpm" + cPathSep + 
-           "packages" + cPathSep + "markdown" + cPathSep + "lib" + cPathSep + 
-           cOSName + cPathSep + cArchName + cPathSep + cLibPrefix + "ring_markdown" + cLibExt
+        "packages" + cPathSep + "markdown" + cPathSep + "lib" + cPathSep + 
+        cOSName + cPathSep + cArchName + cPathSep + cLibPrefix + "ring_markdown" + cLibExt
 
-# # Verify library exists
+# Verify library exists
 if !fexists(cLibPath)
     ? "Error: Markdown library not found!"
     ? "Expected location: " + cLibPath
@@ -65,7 +65,7 @@ try
             cDestDir = "/usr/lib"
         ok
         cCommand = 'which sudo >/dev/null 2>&1 && sudo ln -sf "' + cLibPath + '" "' + cDestDir + 
-                  '" || doas ln -sf "' + cLibPath + '" "' + cDestDir + '"'
+                '" || doas ln -sf "' + cLibPath + '" "' + cDestDir + '"'
         system(cCommand)
     ok
     ? "Successfully installed Ring Markdown!"
