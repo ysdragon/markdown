@@ -65,7 +65,8 @@ try
             cDestDir = "/usr/lib"
         ok
         cCommand = 'which sudo >/dev/null 2>&1 && sudo ln -sf "' + cLibPath + '" "' + cDestDir + 
-                '" || doas ln -sf "' + cLibPath + '" "' + cDestDir + '"'
+                '" || (which doas >/dev/null 2>&1 && doas ln -sf "' + cLibPath + '" "' + cDestDir + 
+                '" || ln -sf "' + cLibPath + '" "' + cDestDir + '")'
         system(cCommand)
     ok
     ? "Successfully installed Ring Markdown!"
