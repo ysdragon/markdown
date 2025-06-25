@@ -43,7 +43,7 @@ aPackageInfo = [
 	:fedorafiles = 	[
 
 	],
-	:FreeBSDFiles	= [
+	:freebsdfiles	= [
 		"lib/freebsd/amd64/libring_markdown.so"
 	],
 	:macosfiles = 	[
@@ -61,7 +61,7 @@ aPackageInfo = [
 	:fedoraringfolderfiles = 	[
 
 	],
-	:FreeBSDringfolderFiles	= [
+	:freebsdringfolderfiles	= [
 		
 	],
 	:macosringfolderfiles = 	[
