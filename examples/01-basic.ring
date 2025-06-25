@@ -41,18 +41,18 @@ func printStructure list
     for item in list
         if isNumber(item)
             switch item
-                case 0 
+                case MD_BLOCK_DOC
                     ? "Document Start"
-                case 2 
+                case MD_BLOCK_UL
                     ? "  List Start"
-                case 4 
+                case MD_BLOCK_LI
                     ?  "  - List Item"
-                case 6 
+                case MD_BLOCK_H
                     ? "# Heading"
-                case 7 
+                case MD_BLOCK_CODE
                     ? "``` Code Block"
-                case 9 ?
-                    "  Paragraph"
+                case MD_BLOCK_P
+                    ? "  Paragraph"
             end
         else
             if item != "" 
