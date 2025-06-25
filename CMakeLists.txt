@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
 project(RingMarkdown)
 
 # Get the Ring source directory from environment or use default
@@ -36,16 +36,12 @@ add_custom_command(
 # Determine OS and Architecture specific paths
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set(OS_DIR "linux")
-    set(LIB_EXT ".so")
 elseif(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
     set(OS_DIR "freebsd")
-    set(LIB_EXT ".so")
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     set(OS_DIR "windows")
-    set(LIB_EXT ".dll")
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     set(OS_DIR "macos")
-    set(LIB_EXT ".dylib")
 else()
     message(FATAL_ERROR "Unsupported operating system: ${CMAKE_SYSTEM_NAME}")
 endif()
