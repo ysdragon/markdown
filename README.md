@@ -83,25 +83,14 @@ Check the [`examples`](examples) directory for more usage examples:
 ## Contributing
 
 ### Bug Reports
-If you find a bug, please open an issue on GitHub with:
-- A clear description of the problem
-- Steps to reproduce
-- Expected vs actual behavior
-- Your environment details (OS, Ring version, etc.)
+Open an issue with bug description, steps to reproduce, and environment details.
 
 ### Pull Requests
-Contributions are welcome! Please:
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
-
-### Development Setup
-1. Fork and clone the repository
-2. Build the project following installation instructions
-3. Run tests before submitting PR
-4. Ensure documentation is updated
+1. Fork repo
+2. Create feature branch
+3. Make changes
+4. Push changes
+5. Open PR
 
 ## License
 
