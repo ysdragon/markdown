@@ -74,11 +74,7 @@ struct = md.parse(text)
 
 ## Examples
 
-Check the [`examples`](examples) directory for more usage examples:
-- [`01-basic.ring`](examples/01-basic.ring): Basic markdown to HTML conversion
-- [`02-github.ring`](examples/02-github.ring): GitHub-flavored markdown features
-- [`03-custom-flags.ring`](examples/03-custom-flags.ring): Custom parsing options
-- [`04-html-advanced.ring`](examples/04-html-advanced.ring): Advanced Markdown to HTML conversion with multiple styles
+Check the [`examples`](examples) directory for more usage examples.
 
 ## Contributing
 
