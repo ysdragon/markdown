@@ -29,22 +29,22 @@ git clone --recursive https://github.com/ysdragon/markdown.git
 cd markdown
 ```
 
-2. Set RING environment variable to your Ring installation directory:
+2. Set the `RING` environment variable to your Ring installation directory:
+ 
+    - Windows
+        - Command Prompt
+            ```cmd
+            set RING=X:\path\to\ring
+            ```
+        - PowerShell
+            ```powershell
+            $env:RING = "X:\path\to\ring"
+            ```
 
-On Windows (cmd):
-```cmd
-set RING=X:\path\to\ring
-```
-
-On Windows (PowerShell):
-```powershell
-$env:RING = "X:\path\to\ring"
-```
-
-On Unix-like systems:
-```bash
-export RING=/path/to/ring
-```
+    - Unix
+        ```bash
+        export RING=/path/to/ring
+        ```
 
 3. Build using CMake:
 ```bash
