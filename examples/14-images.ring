@@ -4,7 +4,7 @@ load "markdown.ring"
 md = new Markdown()
 
 text = '
-![Ring Logo](https://www.ring-lang.org/ring-logo.png)
+![Ring Logo](https://ring-lang.net/theringlogo.jpg)
 '
 
 ? "Converting markdown with images to HTML:"
