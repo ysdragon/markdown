@@ -55,6 +55,7 @@ cmake --build build
 ## Usage
 
 ```ring
+load "stdlibcore.ring"
 load "markdown.ring"
 
 md = new Markdown()
@@ -69,7 +70,7 @@ html = md.toHTML(text)
 
 # Parse markdown structure
 struct = md.parse(text)
-? struct
+? list2code(struct)
 ```
 
 ## Examples
