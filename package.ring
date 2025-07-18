@@ -35,7 +35,8 @@ aPackageInfo = [
 		"lib/windows/amd64/ring_markdown.dll"
 	],
 	:linuxfiles = 	[
-		"lib/linux/amd64/libring_markdown.so"
+		"lib/linux/amd64/libring_markdown.so",
+		"lib/linux/arm64/libring_markdown.so"
 	],
 	:ubuntufiles = 	[
 
