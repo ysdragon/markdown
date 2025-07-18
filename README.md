@@ -4,7 +4,7 @@ A native markdown processing extension for the [Ring](http://ring-lang.net) prog
 
 ## Features
 
-- Cross-platform (Windows, Linux, FreeBSD)
+- Cross-platform (Linux, macOS, FreeBSD, and Windows)
 - Easy-to-use Ring API
 
 ## Prerequisites
