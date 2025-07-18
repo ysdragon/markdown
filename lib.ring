@@ -2,6 +2,8 @@ if isWindows()
     loadlib("ring_markdown.dll")
 elseif isLinux() or isFreeBSD()
     loadlib("libring_markdown.so")
+elseif isMacOSX()
+    loadlib("libring_markdown.dylib")
 else
     raise("Unsupported OS! You need to build the library for your OS.")
 ok

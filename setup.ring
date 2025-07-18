@@ -25,6 +25,9 @@ switch true
     case isFreeBSD()
         cLibExt = ".so"
         cOSName = "freebsd"
+    case isMacOSX()
+        cLibExt = ".dylib"
+        cOSName = "macos"
     else
         raise("Error: Unsupported operating system detected!")
 end
@@ -59,7 +62,7 @@ try
     if isWindows()
         systemSilent("copy /y " + '"' + cLibPath + '" "' + exefolder() + '"')
     else
-        if isFreeBSD()
+        if isFreeBSD() or isMacOSX()
             cDestDir = "/usr/local/lib"
         elseif isLinux()
             cDestDir = "/usr/lib"
