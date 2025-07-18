@@ -47,7 +47,8 @@ aPackageInfo = [
 		"lib/freebsd/amd64/libring_markdown.so"
 	],
 	:macosfiles = 	[
-
+		"lib/macos/amd64/libring_markdown.dylib",
+		"lib/macos/arm64/libring_markdown.dylib"
 	],
 	:windowsringfolderfiles = 	[
 
