@@ -3,17 +3,17 @@ project(RingMarkdown)
 
 # Get the Ring source directory from environment or use default
 if(NOT DEFINED ENV{RING})
-    set(RING_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/../..")
-    message(STATUS "RING_SOURCE not defined, using default: ${RING_SOURCE}")
+    set(RING "${CMAKE_CURRENT_SOURCE_DIR}/../..")
+    message(STATUS "RING not defined, using default: ${RING}")
 else()
-    set(RING_SOURCE $ENV{RING})
-    message(STATUS "Using RING_SOURCE from environment: ${RING_SOURCE}")
+    set(RING $ENV{RING})
+    message(STATUS "Using RING from environment: ${RING}")
 endif()
 
 # Set paths
-set(RING_INCLUDE "${RING_SOURCE}/language/include")
-set(RING_LIB "${RING_SOURCE}/lib")
-set(CODEGEN_SCRIPT "${RING_SOURCE}/extensions/codegen/parsec.ring")
+set(RING_INCLUDE "${RING}/language/include")
+set(RING_LIB "${RING}/lib")
+set(CODEGEN_SCRIPT "${RING}/extensions/codegen/parsec.ring")
 
 # MD4C Configuration
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared instead of static libs" FORCE)
@@ -27,7 +27,7 @@ add_subdirectory(src/md4c)
 add_custom_command(
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/ring_markdown.c
     COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}
-    COMMAND ${RING_SOURCE}/bin/ring ${CODEGEN_SCRIPT} ${CMAKE_CURRENT_SOURCE_DIR}/src/md4c.cf ${CMAKE_CURRENT_BINARY_DIR}/ring_markdown.c ${CMAKE_CURRENT_SOURCE_DIR}/src/ring_markdown.rh
+    COMMAND ${RING}/bin/ring ${CODEGEN_SCRIPT} ${CMAKE_CURRENT_SOURCE_DIR}/src/md4c.cf ${CMAKE_CURRENT_BINARY_DIR}/ring_markdown.c ${CMAKE_CURRENT_SOURCE_DIR}/src/ring_markdown.rh
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/md4c.cf ${CODEGEN_SCRIPT}
     COMMENT "Generating C code from md4c.cf"
     VERBATIM
