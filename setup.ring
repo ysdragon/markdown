@@ -36,6 +36,8 @@ end
 # Get system architecture
 cArchName = getarch()
 switch cArchName
+    case "x86"
+        cArchName = "i386"
     case "x64"
         cArchName = "amd64"
     case "arm64"
@@ -54,6 +56,8 @@ if !fexists(cLibPath)
     ? "Error: Markdown library not found!"
     ? "Expected location: " + cLibPath
     ? "Please ensure the library is built for your platform (" + cOSName + "/" + cArchName + ")"
+    ? "You can refer to the README.md for build instructions: " + exefolder() + ".." + cPathSep + "tools" + cPathSep + "ringpm" + cPathSep + 
+        "packages" + cPathSep + "markdown" + cPathSep + "README.md"
     return
 ok
 

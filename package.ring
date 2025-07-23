@@ -50,6 +50,7 @@ aPackageInfo = [
 
 	],
 	:windowsfiles = 	[
+		"lib/windows/i386/ring_markdown.dll",
 		"lib/windows/amd64/ring_markdown.dll"
 	],
 	:linuxfiles = 	[
