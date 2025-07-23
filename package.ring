@@ -21,6 +21,7 @@ aPackageInfo = [
 		"main.ring",
 		"src/md4c.cf",
 		"src/ring_markdown.rh",
+		"CMakeLists.txt",
 		"examples/01-basic.ring",
 		"examples/02-github.ring",
 		"examples/03-custom-flags.ring",
