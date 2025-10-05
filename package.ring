@@ -23,6 +23,7 @@ aPackageInfo = [
 		"src/ring_markdown.c",
 		"src/ring_markdown.rh",
 		"CMakeLists.txt",
+		".clang-format",
 		"examples/01-basic.ring",
 		"examples/02-github.ring",
 		"examples/03-custom-flags.ring",

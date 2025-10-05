@@ -18,7 +18,7 @@ on:
     - '.github/workflows/**'
     - '.gitmodules'
     - 'src/md4c/**'
-
+    
 jobs:
   freebsd:
     uses: ./.github/workflows/freebsd_build.yml
