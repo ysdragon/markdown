@@ -20,6 +20,7 @@ aPackageInfo = [
 		"lib.ring",
 		"main.ring",
 		"src/md4c.cf",
+		"src/ring_markdown.c",
 		"src/ring_markdown.rh",
 		"CMakeLists.txt",
 		"examples/01-basic.ring",
@@ -42,16 +43,19 @@ aPackageInfo = [
 		"examples/18-headings.ring",
 		"examples/19-breaks.ring",
 		"examples/20-email-autolinks.ring",
-		"setup.ring",
 		"README.md",
-		"LICENSE"
+		"LICENSE",
+		"src/utils/color.ring",
+		"src/utils/install.ring",
+		"src/utils/uninstall.ring"
 	],
 	:ringfolderfiles = 	[
 
 	],
 	:windowsfiles = 	[
 		"lib/windows/i386/ring_markdown.dll",
-		"lib/windows/amd64/ring_markdown.dll"
+		"lib/windows/amd64/ring_markdown.dll",
+		"lib/windows/arm64/ring_markdown.dll"
 	],
 	:linuxfiles = 	[
 		"lib/linux/amd64/libring_markdown.so",
@@ -64,7 +68,8 @@ aPackageInfo = [
 
 	],
 	:freebsdfiles	= [
-		"lib/freebsd/amd64/libring_markdown.so"
+		"lib/freebsd/amd64/libring_markdown.so",
+		"lib/freebsd/arm64/libring_markdown.so"
 	],
 	:macosfiles = 	[
 		"lib/macos/amd64/libring_markdown.dylib",
@@ -94,13 +99,13 @@ aPackageInfo = [
 	:macosrun = "",
 	:ubunturun = "",
 	:fedorarun = "",
-	:setup = "ring setup.ring",
+	:setup = "ring src/utils/install.ring",
 	:windowssetup = "",
 	:linuxsetup = "",
 	:macossetup = "",
 	:ubuntusetup = "",
 	:fedorasetup = "",
-	:remove = "",
+	:remove = "ring src/utils/uninstall.ring",
 	:windowsremove = "",
 	:linuxremove = "",
 	:macosremove = "",
