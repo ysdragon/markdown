@@ -76,7 +76,7 @@ if(NOT DEFINED ARCH_DIR)
         set(ARCH_DIR "arm64")
     elseif(ARCH_DIR_RAW MATCHES "riscv64")
         set(ARCH_DIR "riscv64")
-    elseif(ARCH_DIR_RAW MATCHES "i386|i686|x8x")
+    elseif(ARCH_DIR_RAW MATCHES "i386|i686|x86")
         set(ARCH_DIR "i386")
     else()
         set(ARCH_DIR "${ARCH_DIR_RAW}")
@@ -84,8 +84,29 @@ if(NOT DEFINED ARCH_DIR)
     endif()
 endif()
 
+# Detect musl libc
+option(MUSL "Build for musl libc" OFF)
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    if(NOT MUSL)
+        execute_process(
+            COMMAND ldd --version
+            OUTPUT_VARIABLE LDD_OUTPUT
+            ERROR_VARIABLE LDD_OUTPUT
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+        )
+        if(LDD_OUTPUT MATCHES "musl")
+            set(MUSL ON)
+            message(STATUS "Detected musl libc")
+        endif()
+    endif()
+endif()
+
 # Set the destination directory for the built library
-set(LIB_DEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib/${OS_DIR}/${ARCH_DIR}")
+if(MUSL AND OS_DIR STREQUAL "linux")
+    set(LIB_DEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib/${OS_DIR}/musl/${ARCH_DIR}")
+else()
+    set(LIB_DEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib/${OS_DIR}/${ARCH_DIR}")
+endif()
 
 # Create the Ring markdown extension shared library
 add_library(ring_markdown SHARED
