@@ -8,41 +8,42 @@ on:
     - '**.h'
     - '**/CMakeLists.txt'
     - '.github/workflows/**'
-    - '.gitmodules'
-    - 'src/md4c/**'
   pull_request:
     paths:
     - '**.c'
     - '**.h'
     - '**/CMakeLists.txt'
     - '.github/workflows/**'
-    - '.gitmodules'
-    - 'src/md4c/**'
-    
+
 jobs:
+  alpine:
+    uses: ./.github/workflows/alpine_build.yml
+    with:
+      ring-version: master
+
   freebsd:
     uses: ./.github/workflows/freebsd_build.yml
     with:
-      ring-version: v1.24
+      ring-version: master
 
   macos:
     uses: ./.github/workflows/macos_build.yml
     with:
-      ring-version: v1.24
+      ring-version: master
 
   ubuntu:
     uses: ./.github/workflows/ubuntu_build.yml
     with:
-      ring-version: v1.24
+      ring-version: master
 
   windows:
     uses: ./.github/workflows/windows_build.yml
     with:
-      ring-version: v1.24
+      ring-version: master
 
   update-libs:
     runs-on: ubuntu-latest
-    needs: [ freebsd, macos, ubuntu, windows ]
+    needs: [ alpine, freebsd, macos, ubuntu, windows ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
 
     permissions:
@@ -72,7 +73,7 @@ jobs:
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add lib
         if ! git diff --staged --quiet; then
-          git commit -m "Update libs"
+          git commit -m "* Update libs"
           git push
         else
           echo "No library changes to commit."

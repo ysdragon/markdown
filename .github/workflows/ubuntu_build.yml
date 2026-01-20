@@ -22,25 +22,25 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y cmake build-essential
+        sudo apt-get install -y cmake ninja-build build-essential
 
     - name: Checkout ring-markdown
       uses: actions/checkout@v4
       with:
         submodules: recursive
 
-    - name: Clone Ring Language
+    - name: Clone Ring Source
       uses: actions/checkout@v4
       with:
-        repository: ring-lang/ring
+        repository: ringpackages/ringsrc
         path: ring
         ref: ${{ inputs.ring-version }}
 
     - name: Build and Install Ring Language
       run: |
         cd ring/language
-        cmake . -DCMAKE_BUILD_TYPE=Release
-        make install
+        cmake . -DCMAKE_BUILD_TYPE=Release -GNinja
+        ninja install
 
     - name: Set RING environment variable
       run: echo "RING=$(pwd)/ring" >> $GITHUB_ENV
@@ -48,8 +48,8 @@ jobs:
     - name: Build ring-markdown lib
       run: |
         rm -rf lib
-        cmake . -DCMAKE_BUILD_TYPE=Release
-        make
+        cmake . -DCMAKE_BUILD_TYPE=Release -GNinja
+        ninja
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
