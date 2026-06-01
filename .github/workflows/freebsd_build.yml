@@ -29,6 +29,9 @@ jobs:
       with:
         submodules: recursive
 
+    - name: Clean lib directory
+      run: rm -rf lib
+
     - name: Build in FreeBSD VM
       id: freebsd_build
       uses: vmactions/freebsd-vm@v1
