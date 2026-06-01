@@ -54,8 +54,7 @@ aPackageInfo = [
 
 	],
 	:freebsdfiles	= [
-		"lib/freebsd/amd64/libring_markdown.so",
-		"lib/freebsd/arm64/libring_markdown.so"
+		"lib/freebsd/amd64/libring_markdown.so"
 	],
 	:macosfiles = 	[
 		"lib/macos/amd64/libring_markdown.dylib",
